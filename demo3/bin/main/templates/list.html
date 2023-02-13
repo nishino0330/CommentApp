@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<br xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+<title>CommentInquiryApp</title>
+</head>
+<hr>
+  <h3>コメント投稿アプリ</h3>
+  <div th:if="${comments.size() == 0}">
+    投稿されたコメントはありません。
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Content</th>
+      </tr>
+    </thead>
+    <tbody>
+	  <div th:each="comment : ${comments}" th:inline="text">
+        <tr>
+          <th scope="row">[[${comments.size()}]]</th>
+          <td>&nbsp;[[${comment.name}]]</td>
+          <td>&nbsp;[[${comment.email}]]</td>
+          <td>&nbsp;[[${comment.content}]]</td> 
+          <td><a th:href="@{/delete?(id=*{comment.id})}"><button type="delete" class="btn btn-primary">削除</button>  
+        </tr>
+      </div>
+    </tbody>
+  </table>
+  <hr>
+    <form th:action="@{/add}" th:object="${commentInquiry}" method="post">
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{name}" placeholder="Name" aria-label="Name">
+          <div class="invalid-feedback" th:errors="*{name}"></div >
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{email}" placeholder="Email" aria-label="Email">
+          <div class="invalid-feedback" th:errors="*{email}"></div >
+  	    </div>
+      </div>
+      <div class="row">
+  	    <div class="col">
+          <textarea type="text" class="form-control" th:errorclass="is-invalid" th:field="*{content}" placeholder="Content" aria-label="Content"></textarea>
+          <div class="invalid-feedback" th:errors="*{content}"></div >
+        </div>
+      </div>
+      <button type="post" class="btn btn-primary">投稿</button>
+    </form>
+  </hr>
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src ="@{/webjars/popper.js/umd/popper.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

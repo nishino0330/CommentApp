@@ -1,0 +1,47 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// lombokの設定
+	compileOnly 'org.projectlombok:lombok:1.18.10'
+	annotationProcessor 'org.projectlombok:lombok:1.18.10'
+	// bootstrapの設定
+	implementation 'org.webjars:webjars-locator:0.40'
+    implementation 'org.webjars:bootstrap:4.5.0'
+	// https://mvnrepository.com/artifact/javax.validation/validation-api
+	implementation 'javax.validation:validation-api:2.0.0.Final'
+	// Spring Data JPAの設定
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'	
+	// MyAQL driverの設定
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
